@@ -37,7 +37,7 @@ function App() {
             <th scope="col">Initiative</th> 
             <th scope="col">Name</th>   
             <th scope="col">HP</th>  
-            <th scope="col">AC</th>  
+            <th scope="col">Armor Class</th>  
             <th scope="col"></th>       
           </tr>
         </thead>
