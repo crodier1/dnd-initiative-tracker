@@ -28,8 +28,7 @@ function App() {
 
   return ( 
     <>
-      <div className="container mt-3">
-        <h1 className='text-center'>Initative Tracker</h1>
+      <div className="container mt-3">        
       
       <table className="table">
       
@@ -63,7 +62,7 @@ function App() {
 
                         return {...character, initative: event.target.value}
                       })
-                      ].sort((a,b) => a.initative - b.initative)); 
+                      ].sort((a,b) => b.initative - a.initative)); 
                       
                       localStorage.setItem('iniative', JSON.stringify(characters.map(char => {
                         if(char.id != c.id){
@@ -88,7 +87,7 @@ function App() {
 
                     return {...character, name: event.target.value}
                   })
-                  ].sort((a,b) => a.initative - b.initative)); 
+                  ].sort((a,b) => b.initative - a.initative)); 
                   
                   localStorage.setItem('iniative', JSON.stringify(characters.map(char => {
                     if(char.id != c.id){
@@ -113,7 +112,7 @@ function App() {
 
                   return {...character, hp: event.target.value}
                 })
-                ].sort((a,b) => a.initative - b.initative)); 
+                ].sort((a,b) => b.initative - a.initative)); 
                 
                 localStorage.setItem('iniative', JSON.stringify(characters.map(char => {
                   if(char.id != c.id){
@@ -139,7 +138,7 @@ function App() {
   
                     return {...character, ac: event.target.value}
                   })
-                  ].sort((a,b) => a.initative - b.initative)); 
+                  ].sort((a,b) => b.initative - a.initative));  
                   
                   localStorage.setItem('iniative', JSON.stringify(characters.map(char => {
                     if(char.id != c.id){
