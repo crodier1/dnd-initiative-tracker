@@ -34,7 +34,7 @@ function App() {
       
         <thead>
           <tr>
-            <th scope="col">c</th> 
+            <th scope="col">Initiative</th> 
             <th scope="col">Name</th>   
             <th scope="col">HP</th>  
             <th scope="col">AC</th>  
