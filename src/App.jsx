@@ -9,7 +9,7 @@ function App() {
 
   function addCharacter(){   
 
-    let newCharatcer = {id: uuidv4(), initative: "", name: "", hp: "", ac: ""};
+    let newCharatcer = {id: uuidv4(), initative: "", name: "", hp: "", ac: "", notes: ""};
     
     setCharacters([...characters, newCharatcer])
 
@@ -38,6 +38,7 @@ function App() {
             <th scope="col">Name</th>   
             <th scope="col">HP</th>  
             <th scope="col">Armor Class</th>  
+            <th scope="col">Notes</th>
             <th scope="col"></th>       
           </tr>
         </thead>
@@ -147,6 +148,33 @@ function App() {
                     
                     return {...char, ac: event.target.value}
                   }))); 
+                }}
+              />
+            </th>
+
+            <th style={{ minWidth: '200px' }}>
+              <textarea id={"notes"} className="form-control" placeholder='Notes'
+                rows={1}
+                style={{ height: '38px', minHeight: '38px', resize: 'vertical', maxHeight: '150px', overflowY: 'auto' }}
+                value={c.notes || ""}
+                onChange={event => {
+
+                  setCharacters([...characters.map(character=> {
+                    if(character.id != c.id){
+                      return character
+                    }
+
+                    return {...character, notes: event.target.value}
+                  })
+                  ].sort((a,b) => b.initative - a.initative));  
+                  
+                  localStorage.setItem('iniative', JSON.stringify(characters.map(char => {
+                    if(char.id != c.id){
+                      return char
+                    }
+                    
+                    return {...char, notes: event.target.value}
+                  })));
                 }}
               />
             </th>
