@@ -9,7 +9,7 @@ function App() {
 
   function addCharacter(){   
 
-    let newCharatcer = {id: uuidv4(), initative: "", name: "", hp: "", ac: ""};
+    let newCharatcer = {id: uuidv4(), initative: "", name: "", hp: "", ac: "", notes: ""};
     
     setCharacters([...characters, newCharatcer])
 
@@ -37,7 +37,8 @@ function App() {
             <th scope="col">Initiative</th> 
             <th scope="col">Name</th>   
             <th scope="col">HP</th>  
-            <th scope="col">Armor Class</th>  
+            <th scope="col">AC</th>  
+            <th scope="col" className="d-none d-md-table-cell">Notes</th>
             <th scope="col"></th>       
           </tr>
         </thead>
@@ -48,19 +49,23 @@ function App() {
               
                 <input 
                 id={"initiative"} 
-                type="text" 
+                type="number" 
                 placeholder='Initiative'
                 className="form-control" 
+                inputMode="numeric"
+                step={1}
+                style={{ maxWidth: '64px' }}
                 value={c.initative}                
                   onChange={(event) => 
                     { 
-
+                      const raw = event.target.value;
+                      const nextVal = raw === '' ? '' : parseInt(raw, 10);
                       setCharacters([...characters.map(character=> {
                         if(character.id != c.id){
                           return character
                         }
 
-                        return {...character, initative: event.target.value}
+                        return {...character, initative: Number.isNaN(nextVal) ? '' : nextVal}
                       })
                       ].sort((a,b) => b.initative - a.initative)); 
                       
@@ -69,14 +74,16 @@ function App() {
                           return char
                         }
                         
-                        return {...char, initative: event.target.value}
-                      })));  
+                        return {...char, initative: Number.isNaN(nextVal) ? '' : nextVal}
+                      })));
               }}
                 />
                
             </th>
             <th>
-              <input id={"name"} type="text" className="form-control" placeholder='Name'
+              <textarea id={"name"} className="form-control" placeholder='Name'
+                rows={1}
+                style={{ height: '38px', minHeight: '38px', resize: 'vertical', maxHeight: '150px', overflowY: 'auto' }}
                 value={c.name}
                 onChange={event => {
 
@@ -103,14 +110,18 @@ function App() {
             <th>
               <input id={"hp"} type="number" className="form-control" placeholder='HP'
               value={c.hp}
+              inputMode="numeric"
+              step={1}
+              style={{ maxWidth: '84px' }}
               onChange={event => {
-
+                const raw = event.target.value;
+                const nextVal = raw === '' ? '' : parseInt(raw, 10);
                 setCharacters([...characters.map(character=> {
                   if(character.id != c.id){
                     return character
                   }
 
-                  return {...character, hp: event.target.value}
+                  return {...character, hp: Number.isNaN(nextVal) ? '' : nextVal}
                 })
                 ].sort((a,b) => b.initative - a.initative)); 
                 
@@ -119,8 +130,8 @@ function App() {
                     return char
                   }
                   
-                  return {...char, hp: event.target.value}
-                }))); 
+                  return {...char, hp: Number.isNaN(nextVal) ? '' : nextVal}
+                })));
               }}
 
               />
@@ -129,14 +140,18 @@ function App() {
             <th>
               <input id={"ac"} type="number" className="form-control" placeholder='AC'
                 value={c.ac}
+                inputMode="numeric"
+                step={1}
+                style={{ maxWidth: '64px' }}
                 onChange={event => {
-
+                  const raw = event.target.value;
+                  const nextVal = raw === '' ? '' : parseInt(raw, 10);
                   setCharacters([...characters.map(character=> {
                     if(character.id != c.id){
                       return character
                     }
   
-                    return {...character, ac: event.target.value}
+                    return {...character, ac: Number.isNaN(nextVal) ? '' : nextVal}
                   })
                   ].sort((a,b) => b.initative - a.initative));  
                   
@@ -145,8 +160,35 @@ function App() {
                       return char
                     }
                     
-                    return {...char, ac: event.target.value}
-                  }))); 
+                    return {...char, ac: Number.isNaN(nextVal) ? '' : nextVal}
+                  })));
+                }}
+              />
+            </th>
+
+            <th style={{ minWidth: '200px' }} className="d-none d-md-table-cell">
+              <textarea id={"notes"} className="form-control" placeholder='Notes'
+                rows={1}
+                style={{ height: '38px', minHeight: '38px', resize: 'vertical', maxHeight: '150px', overflowY: 'auto' }}
+                value={c.notes || ""}
+                onChange={event => {
+
+                  setCharacters([...characters.map(character=> {
+                    if(character.id != c.id){
+                      return character
+                    }
+
+                    return {...character, notes: event.target.value}
+                  })
+                  ].sort((a,b) => b.initative - a.initative));  
+                  
+                  localStorage.setItem('iniative', JSON.stringify(characters.map(char => {
+                    if(char.id != c.id){
+                      return char
+                    }
+                    
+                    return {...char, notes: event.target.value}
+                  })));
                 }}
               />
             </th>
